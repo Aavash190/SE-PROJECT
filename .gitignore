@@ -1,0 +1,17 @@
+*.py[cod]
+*$py.class
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+ENV/
+env/
+db.sqlite3
+.coverage
+htmlcov/
+.dockerignore
+Dockerfile.venv
+*.log
+.DS_Store
+.idea/
+.vscode/
