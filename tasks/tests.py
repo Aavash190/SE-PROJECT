@@ -64,3 +64,11 @@ class TaskAPITests(APITestCase):
         }
         response = self.client.post(self.list_url, payload)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    # Test to check the string representation (__str__) of Task model
+    def test_task_str(self):
+        task = Task.objects.create(
+            title="Test Task",
+            due_date="2026-08-23",
+        )
+        self.assertEqual(str(task), "Test Task")
