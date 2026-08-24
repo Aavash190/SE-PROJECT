@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Task
 
 
+# TaskSerializer converts Task objects to JSON and validates incoming data from the API.
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
