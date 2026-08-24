@@ -1,6 +1,8 @@
 from django.db import models
 
 
+# Simple Task model representing our to-do items.
+# We are only keeping basic fields (Title, Description, Due Date, Status, Priority) to keep things easy.
 class Task(models.Model):
     STATUS_CHOICES = [
         ("pending", "Pending"),

@@ -15,11 +15,13 @@ class TaskAPITests(APITestCase):
         )
         self.list_url = reverse("task-list")
 
+    # Test to check if listing tasks works and returns HTTP 200
     def test_list_tasks(self):
         response = self.client.get(self.list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
 
+    # Test to check if creating a new task works and increments count
     def test_create_task(self):
         payload = {
             "title": "Clean Code Reading",
@@ -32,12 +34,14 @@ class TaskAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Task.objects.count(), 2)
 
+    # Test to check if retrieving a single task detail works
     def test_retrieve_task(self):
         url = reverse("task-detail", args=[self.task.id])
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["title"], "Finish SE Project")
 
+    # Test to check if updating a task field works correctly
     def test_update_task(self):
         url = reverse("task-detail", args=[self.task.id])
         response = self.client.patch(url, {"status": "completed"})
@@ -45,12 +49,14 @@ class TaskAPITests(APITestCase):
         self.task.refresh_from_db()
         self.assertEqual(self.task.status, "completed")
 
+    # Test to check if deleting a task works and database is updated
     def test_delete_task(self):
         url = reverse("task-detail", args=[self.task.id])
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Task.objects.count(), 0)
 
+    # Test to verify validation fails and returns bad request if due_date is missing
     def test_create_task_missing_due_date_fails(self):
         payload = {
             "title": "Invalid Task",
